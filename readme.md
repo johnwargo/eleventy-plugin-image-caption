@@ -1,10 +1,11 @@
-# Eleventy Plugin Starter (JavaScript)
+# Eleventy Plugin Image Caption
 
 > [!WARNING]
 > Work in progress, not ready for public consumption yet.
 
 `imageReference` won't work correctly if you use the same image on the page twice. Copy the image to a new file if you want to do this. My long term goal is to allow you to pass an instance parameter to the shortcode in order to reference which version of the you image you want to refer to.
 
+`imageReference` only works for references after the image.
 
 ***
 
