@@ -2,3 +2,9 @@ body {
   padding-left: 20px;
   padding-right: 20px;
 }
+
+.caption {
+  margin-top: -1.0rem;
+  font-style: italic;
+  font-size: 0.9rem;
+}

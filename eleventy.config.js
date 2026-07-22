@@ -2,7 +2,10 @@ import imageCaptionPlugin from './eleventy-plugin-image-caption.js';
 
 export default async function (eleventyConfig) {
 
-  eleventyConfig.addPlugin(imageCaptionPlugin);
+  eleventyConfig.addPlugin(imageCaptionPlugin, {
+		captionLabel: "Image",
+		captionClass: "caption"
+	});
 
 	eleventyConfig.addPassthroughCopy("src/assets/");
 	eleventyConfig.addPassthroughCopy("src/images/");
