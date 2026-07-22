@@ -1,0 +1,11 @@
+# Folders
+_site/
+node_modules/
+src/
+
+# files
+.gitignore
+eleventy.config.js
+pub.mjs
+home.png
+npm.png
