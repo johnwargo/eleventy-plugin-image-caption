@@ -7,6 +7,8 @@
  * page. Using sequential numbers, of course.
  ********************************************************************/
 
+// TODO: add support for selecting which version of an image you want to refer to
+
 const DEFAULT_CAPTION_LABEL = "Figure";
 const DEFAULT_CAPTION_CLASS = "caption";
 
@@ -21,8 +23,7 @@ function captionedImageShortcode(imagePath, captionText) {
     const SHORTCODE_NAME = 'ImageCaption';
     console.log(`[${SHORTCODE_NAME}] "${imagePath}"`);
     const page = this.page.url; // get the current page URL
-    // if we're in dev mode, just return generic text
-    if (isDev) return `<p class="${captionClass}"><strong>${captionLabel} #: </strong>${captionText}</p>`;
+
     // does the page's array exist in the captions?
     if (!captions[page]) {
         // then make a new entry for it
@@ -30,6 +31,11 @@ function captionedImageShortcode(imagePath, captionText) {
     }
     // append the caption to the captions array for the current page
     captions[page].push({ imagePath, captionText });
+
+    // if we're in dev mode, just return generic text
+    // to understand why, read the repo's readme file
+    if (isDev) return `<p class="${captionClass}"><strong>${captionLabel} #: </strong>${captionText}</p>`;
+
     const figureNumber = captions[page].length;
     return `<p class="${captionClass}"><strong>${captionLabel} ${figureNumber}: </strong>${captionText}</p>`;
 }
@@ -38,8 +44,7 @@ function imageReferenceShortcode(imagePath) {
     const SHORTCODE_NAME = 'ImageReference';
     console.log(`[${SHORTCODE_NAME}] "${imagePath}"`);
     const page = this.page.url; // get the current page URL
-    // if we're in dev mode, just return generic text
-    if (isDev) return `${captionLabel} #:`;
+    
     // Is the page in the captions array?
     if (!captions[page]) {
         // too early to reference images
