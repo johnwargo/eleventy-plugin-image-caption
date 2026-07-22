@@ -9,13 +9,15 @@
 
 // TODO: add support for selecting which version of an image you want to refer to
 
-const DEFAULT_CAPTION_LABEL = "Figure";
+const DEFAULT_CAPTION_BOLD = true;
 const DEFAULT_CAPTION_CLASS = "caption";
+const DEFAULT_CAPTION_LABEL = "Figure";
 
 const isDev = process.env.ELEVENTY_RUN_MODE === "serve" || process.env.ELEVENTY_RUN_MODE === "watch";
 
 const captions = [];
 
+var captionBold;
 var captionClass;
 var captionLabel;
 
@@ -34,17 +36,21 @@ function captionedImageShortcode(imagePath, captionText) {
 
     // if we're in dev mode, just return generic text
     // to understand why, read the repo's readme file
-    if (isDev) return `<p class="${captionClass}"><strong>${captionLabel} #: </strong>${captionText}</p>`;
+    if (isDev) return captionBold
+        ? `<p class="${captionClass}"><strong>${captionLabel} #: </strong>${captionText}</p>`
+        : `<p class="${captionClass}">${captionLabel} #: ${captionText}</p>`;
 
     const figureNumber = captions[page].length;
-    return `<p class="${captionClass}"><strong>${captionLabel} ${figureNumber}: </strong>${captionText}</p>`;
+    return captionBold
+        ? `<p class="${captionClass}"><strong>${captionLabel} ${figureNumber}: </strong>${captionText}</p>`
+        : `<p class="${captionClass}">${captionLabel} ${figureNumber}: ${captionText}</p>`;
 }
 
 function imageReferenceShortcode(imagePath) {
     const SHORTCODE_NAME = 'ImageReference';
     console.log(`[${SHORTCODE_NAME}] "${imagePath}"`);
     const page = this.page.url; // get the current page URL
-    
+
     // Is the page in the captions array?
     if (!captions[page]) {
         // too early to reference images
@@ -57,8 +63,10 @@ function imageReferenceShortcode(imagePath) {
 
 export default function (eleventyConfig, options) {
     // populate our default options
-    captionLabel = options?.captionLabel || DEFAULT_CAPTION_LABEL;
+    captionBold = options?.captionBold ?? DEFAULT_CAPTION_BOLD;
     captionClass = options?.captionClass || DEFAULT_CAPTION_CLASS;
+    captionLabel = options?.captionLabel || DEFAULT_CAPTION_LABEL;
+
     // Add the shortcodes
     eleventyConfig.addLiquidShortcode('captionedImage', captionedImageShortcode);
     eleventyConfig.addLiquidShortcode('imageReference', imageReferenceShortcode);

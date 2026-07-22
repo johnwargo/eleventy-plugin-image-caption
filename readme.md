@@ -3,7 +3,34 @@
 > [!WARNING]
 > Work in progress, not ready for public consumption yet.
 
-// TODO: make bolding the label configurable
+Eleventy (11ty) plugin that adds two shortcodes to an Eleventy project:
+
+| Shortcode        | Description  | 
+| ---------------- | ------------------------------------ |
+| `captionedImage` | Returns an automatically numbered image caption like "Figure 1: A boy with a dog" The shortcode automatically assigns the image/figure number based on an image file's position on the page (top to bottom). | 
+| `imageReference` | Returns a text string that references a particular image by number like "Figure 2". |
+
+## Background
+
+
+## Examples
+
+
+## Limitations
+
+
+
+## Installation
+
+
+## Configuration
+
+
+## Usage
+
+
+
+
 
 
 `imageReference` won't work correctly if you use the same image on the page twice. Copy the image to a new file if you want to do this. My long term goal is to allow you to pass an instance parameter to the shortcode in order to reference which version of the you image you want to refer to.
