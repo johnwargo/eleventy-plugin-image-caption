@@ -17,7 +17,7 @@
 
 <!-- /TOC -->
 
-Eleventy (11ty) plugin that adds two shortcodes to a site:
+An Eleventy (11ty) plugin that adds two shortcodes to a site:
 
 | Shortcode        | Description  | 
 | ---------------- | ------------------------------------ |
@@ -34,7 +34,7 @@ While working on a new Eleventy site, I realized that I wanted the same capabili
 
 This repository includes a complete Eleventy site that demonstrates the functionality exposed through the plugin; you can access the site on [Netlify](https://eleventy-plugin-image-caption.netlify.app/).
 
-Here's an example of a simple caption added to an image using the `captionedImage` shortcode. Its the first image in the file, so the plugin automatically numbers it with a 1.
+Here's an example of a simple caption added to an image using the `captionedImage` shortcode. The shortcut adds a paragraph with the text "Image 1: Dog with Flower" shown in the following figure. Its the first image in the file, so the plugin automatically numbers it with a 1.
 
 ![Example 1](/images/example-01.png)
 
@@ -80,11 +80,9 @@ npm i eleventy-plugin-image-caption
 
 | Configuration Option | Description  | 
 | -------------------- | ------------ |
-| `captionBold`        | Default: `true`  |
-| `captionLabel`       | Default: `Image` |
-| `captionLabel`       | Default:  `caption` |
-
-
+| `captionBold`        | Boolean value that controls whether the caption text ("Image #:" or "Figure #:") is bold (HTML `strong`).<br />Default: `true`  |
+| `captionClass`       | String value that specifies the class name added to the <br />Default:  `caption` |
+| `captionLabel`       | String value that specifies the text label prepended to the caption.<br />Default: `Image` |
 
 ```js
 import imageCaptionPlugin from 'eleventy-plugin-image-caption';

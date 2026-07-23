@@ -23,6 +23,8 @@ var captionLabel;
 
 function captionedImageShortcode(imagePath, captionText) {
     const SHORTCODE_NAME = 'ImageCaption';
+    var classStr;
+
     console.log(`[${SHORTCODE_NAME}] "${imagePath}"`);
     const page = this.page.url; // get the current page URL
 
@@ -34,16 +36,20 @@ function captionedImageShortcode(imagePath, captionText) {
     // append the caption to the captions array for the current page
     captions[page].push({ imagePath, captionText });
 
+    classStr = captionClass.length > 0
+        ? ` class="${captionClass}"`
+        : "";
+
     // if we're in dev mode, just return generic text
     // to understand why, read the repo's readme file
     if (isDev) return captionBold
-        ? `<p class="${captionClass}"><strong>${captionLabel} #: </strong>${captionText}</p>`
-        : `<p class="${captionClass}">${captionLabel} #: ${captionText}</p>`;
+        ? `<p${classStr}><strong>${captionLabel} #: </strong>${captionText}</p>`
+        : `<p${classStr}>${captionLabel} #: ${captionText}</p>`;
 
     const figureNumber = captions[page].length;
     return captionBold
-        ? `<p class="${captionClass}"><strong>${captionLabel} ${figureNumber}: </strong>${captionText}</p>`
-        : `<p class="${captionClass}">${captionLabel} ${figureNumber}: ${captionText}</p>`;
+        ? `<p${classStr}><strong>${captionLabel} ${figureNumber}: </strong>${captionText}</p>`
+        : `<p${classStr}>${captionLabel} ${figureNumber}: ${captionText}</p>`;
 }
 
 function imageReferenceShortcode(imagePath) {
@@ -66,6 +72,8 @@ export default function (eleventyConfig, options) {
     captionBold = options?.captionBold ?? DEFAULT_CAPTION_BOLD;
     captionClass = options?.captionClass || DEFAULT_CAPTION_CLASS;
     captionLabel = options?.captionLabel || DEFAULT_CAPTION_LABEL;
+bah
+    console.log(`Caption Class: ${captionClass}`);
 
     // Add the shortcodes
     eleventyConfig.addLiquidShortcode('captionedImage', captionedImageShortcode);
