@@ -56,8 +56,13 @@ When you publish the site on a server or run you run a local build and look in t
 
 ## Installation
 
+To install the plugin, open a terminal window or command prompt, navigate to an Eleventy project folder, and execute the following command:
 
-## Configuration
+```
+npm i eleventy-plugin-image-caption
+```
+
+## Plugin Configuration
 
 
 ## Usage
