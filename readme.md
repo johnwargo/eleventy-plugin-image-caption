@@ -22,15 +22,33 @@ This repository includes a complete Eleventy site that demonstrates the function
 
 Here's an example of a simple caption added to an image using the `captionedImage` shortcode. Its the first image in the file, so the plugin automatically numbers it with a 1.
 
-![Example 1](/images/example-01.png).
+![Example 1](/images/example-01.png)
 
-When you invoke the shortcode, you give it the file path pointing to the image plus the text added to th caption and the plugin handles the rest.
+When you invoke the shortcode, you give it the file path pointing to the image plus the text added to the caption and the plugin handles the rest.
 
+The next example highlights referencing an image in the post image number/reference using the `imageReference` shortcode.
 
+![Example 2](/images/example-02.png)
+
+When you invoke the shortcode, you give it the file path pointing to the image and the plugin handles the rest.
 
 ## Limitations
 
+Before we get too deep into the technical details of the plugin, its important to note two limitations.
 
+### One Image 
+
+`imageReference` won't work correctly if you use the same image on the page twice. Remember, the shortcode takes the file path of the image you want to reference. If you display the same image more than one time on the page, the plugin won't know which instance you're referring to. 
+
+Resolution: Copy the image to a different/second file name if you want to do this. 
+
+My long term goal is to allow you to pass an instance parameter to the shortcode to identify which version of the you image intend to reference.
+
+### Serve Mode
+
+When running the site included with this plugin on your local development workstation (starting the Eleventy server with the `--serve` parameter), you'll notice that the captions don't show the image number in the caption.
+
+![Example 3](/images/example-03.png)
 
 ## Installation
 
@@ -44,8 +62,6 @@ When you invoke the shortcode, you give it the file path pointing to the image p
 
 
 
-
-`imageReference` won't work correctly if you use the same image on the page twice. Copy the image to a new file if you want to do this. My long term goal is to allow you to pass an instance parameter to the shortcode in order to reference which version of the you image you want to refer to.
 
 `imageReference` only works for references after the image.
 
