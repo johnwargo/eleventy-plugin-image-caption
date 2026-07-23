@@ -3,6 +3,7 @@ import imageCaptionPlugin from './eleventy-plugin-image-caption.js';
 export default async function (eleventyConfig) {
 
   eleventyConfig.addPlugin(imageCaptionPlugin, {
+		captionBold: true,
 		captionLabel: "Image",
 		captionClass: "caption"
 	});

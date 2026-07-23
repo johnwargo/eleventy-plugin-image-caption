@@ -64,6 +64,57 @@ npm i eleventy-plugin-image-caption
 
 ## Plugin Configuration
 
+| Configuration Option | Description  | 
+| -------------------- | ------------ |
+| `captionBold`        | Default: `true`  |
+| `captionLabel`       | Default: `Image` |
+| `captionLabel`       | Default:  `caption` |
+
+
+
+```js
+import imageCaptionPlugin from 'eleventy-plugin-image-caption';
+```
+
+```js
+eleventyConfig.addPlugin(imageCaptionPlugin);
+```
+
+```js
+eleventyConfig.addPlugin(imageCaptionPlugin, {
+  captionBold: true,
+  captionLabel: "Image",
+  captionClass: "caption"
+});
+```
+
+```js
+import imageCaptionPlugin from './eleventy-plugin-image-caption.js';
+
+export default async function (eleventyConfig) {
+
+  eleventyConfig.addPlugin(imageCaptionPlugin, {
+		captionBold: true,
+		captionLabel: "Image",
+		captionClass: "caption"
+	});
+
+	eleventyConfig.addPassthroughCopy("src/assets/");
+	eleventyConfig.addPassthroughCopy("src/images/");
+	
+	return {
+		dir: {
+			input: 'src',
+			output: "_site",
+			includes: "_includes",
+			layouts: "_layouts",
+			data: "_data"
+		}
+	}
+
+};
+```
+
 
 ## Usage
 
