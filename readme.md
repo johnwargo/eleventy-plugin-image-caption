@@ -1,7 +1,7 @@
 # Eleventy Plugin Image Caption
 
 > [!WARNING]
-> Work in progress, not ready for public consumption yet.
+> Work in progress, not ready for public consumption.
 
 Eleventy (11ty) plugin that adds two shortcodes to an Eleventy project:
 
@@ -12,8 +12,20 @@ Eleventy (11ty) plugin that adds two shortcodes to an Eleventy project:
 
 ## Background
 
+I've always loved the Microsoft Word features that allow you to add an auto numbering caption to an embedded image or table then reference the caption elsewhere in the document. This is something you could do to any Word document manually, but with these features, the numbers and references update automatically whenever you move images around or add new images to the document.
+
+While working on a new Eleventy site, I realized that I wanted the same capability in Eleventy. This particular site will host a lot of tutorials and product reviews, so being able to easily reference image captions in a post was key to readability.
 
 ## Examples
+
+This repository includes a complete Eleventy site that demonstrates the functionality exposed through the plugin; you can access the site on [Netlify](https://eleventy-plugin-image-caption.netlify.app/).
+
+Here's an example of a simple caption added to an image using the `captionedImage` shortcode. Its the first image in the file, so the plugin automatically numbers it with a 1.
+
+![Example 1](/images/example-01.png).
+
+When you invoke the shortcode, you give it the file path pointing to the image plus the text added to th caption and the plugin handles the rest.
+
 
 
 ## Limitations
