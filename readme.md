@@ -1,8 +1,5 @@
 # Eleventy Plugin Image Caption
 
-> [!WARNING]
-> Work in progress, not ready for public consumption.
-
 <!-- TOC -->
 
 - [Eleventy Plugin Image Caption](#eleventy-plugin-image-caption)
@@ -188,7 +185,7 @@ Which is what you see in the first screenshot on this page.
 
 ### `imageReference`
 
-**Note:** As mentioned in the Limitations section of this document, the `imageReference` shortcode only works images that have already been captioned. The captioned image must be higher in the page content than the associated image reference shortcode.
+**Note:** As mentioned in the [Limitations](#limitations) section of this document, the `imageReference` shortcode only works images that have already been captioned. The captioned image must be higher in the page content than the associated image reference shortcode.
 
 To calculate the caption label (label text plus image number) on a page, use the `imageReference` shortcode:
 
