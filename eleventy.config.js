@@ -5,7 +5,7 @@ export default async function (eleventyConfig) {
   eleventyConfig.addPlugin(imageCaptionPlugin, {
 		captionBold: true,
 		captionLabel: "Image",
-		captionClass: ""
+		captionClass: "caption"
 	});
 
 	eleventyConfig.addPassthroughCopy("src/assets/");

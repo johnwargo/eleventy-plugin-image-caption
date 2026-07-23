@@ -70,10 +70,10 @@ function imageReferenceShortcode(imagePath) {
 export default function (eleventyConfig, options) {
     // populate our default options
     captionBold = options?.captionBold ?? DEFAULT_CAPTION_BOLD;
-    captionClass = options?.captionClass || DEFAULT_CAPTION_CLASS;
+    // if captionClass is not specified, use the default. 
+    // otherwise, use whatever is there (including blank)
+    captionClass = options?.captionClass ?? DEFAULT_CAPTION_CLASS;
     captionLabel = options?.captionLabel || DEFAULT_CAPTION_LABEL;
-bah
-    console.log(`Caption Class: ${captionClass}`);
 
     // Add the shortcodes
     eleventyConfig.addLiquidShortcode('captionedImage', captionedImageShortcode);
