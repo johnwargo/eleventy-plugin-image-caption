@@ -94,13 +94,27 @@ import imageCaptionPlugin from 'eleventy-plugin-image-caption';
 eleventyConfig.addPlugin(imageCaptionPlugin);
 ```
 
+	// load some options different from the default
+	// Not passing a `captionClass` value defaults to the default
+
 ```js
 eleventyConfig.addPlugin(imageCaptionPlugin, {
-  captionBold: true,
-  captionLabel: "Image",
-  captionClass: "caption"
+	captionBold: false,
+	captionLabel: "Figure"
 });
 ```
+
+	// Use a different class for the image paragraph
+
+```js
+eleventyConfig.addPlugin(imageCaptionPlugin, {		
+	captionBold: false,
+	captionClass: "ImageCaption"
+});
+```
+
+
+
 
 ```js
 import imageCaptionPlugin from './eleventy-plugin-image-caption.js';
@@ -108,9 +122,8 @@ import imageCaptionPlugin from './eleventy-plugin-image-caption.js';
 export default async function (eleventyConfig) {
 
   eleventyConfig.addPlugin(imageCaptionPlugin, {
-		captionBold: true,
-		captionLabel: "Image",
-		captionClass: "caption"
+		captionBold: false,
+		captionLabel: "Figure"
 	});
 
 	eleventyConfig.addPassthroughCopy("src/assets/");
