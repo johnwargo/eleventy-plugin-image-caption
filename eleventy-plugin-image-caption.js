@@ -17,9 +17,16 @@ const isDev = process.env.ELEVENTY_RUN_MODE === "serve" || process.env.ELEVENTY_
 
 const captions = [];
 
-var captionBold;
-var captionClass;
-var captionLabel;
+// var captionBold;
+// var captionClass;
+// var captionLabel;
+var options = {};
+
+const defaultConfig = {
+  captionBold: true,
+  captionClass: DEFAULT_CAPTION_CLASS,
+  captionLabel: DEFAULT_CAPTION_LABEL
+};
 
 function captionedImageShortcode(imagePath, captionText) {
     const SHORTCODE_NAME = 'ImageCaption';
@@ -36,20 +43,20 @@ function captionedImageShortcode(imagePath, captionText) {
     // append the caption to the captions array for the current page
     captions[page].push({ imagePath, captionText });
 
-    classStr = captionClass.length > 0
-        ? ` class="${captionClass}"`
+    classStr = options.captionClass.length > 0
+        ? ` class="${options.captionClass}"`
         : "";
 
     // if we're in dev mode, just return generic text
     // to understand why, read the repo's readme file
-    if (isDev) return captionBold
-        ? `<p${classStr}><strong>${captionLabel} #: </strong>${captionText}</p>`
-        : `<p${classStr}>${captionLabel} #: ${captionText}</p>`;
+    if (isDev) return options.captionBold
+        ? `<p${classStr}><strong>${options.captionLabel} #: </strong>${captionText}</p>`
+        : `<p${classStr}>${options.captionLabel} #: ${captionText}</p>`;
 
     const figureNumber = captions[page].length;
-    return captionBold
-        ? `<p${classStr}><strong>${captionLabel} ${figureNumber}: </strong>${captionText}</p>`
-        : `<p${classStr}>${captionLabel} ${figureNumber}: ${captionText}</p>`;
+    return options.captionBold
+        ? `<p${classStr}><strong>${options.captionLabel} ${figureNumber}: </strong>${captionText}</p>`
+        : `<p${classStr}>${options.captionLabel} ${figureNumber}: ${captionText}</p>`;
 }
 
 function imageReferenceShortcode(imagePath) {
@@ -64,16 +71,13 @@ function imageReferenceShortcode(imagePath) {
     }
     const figureNumber = captions[page].findIndex(image => image.imagePath === imagePath) + 1;
     if (figureNumber === 0) return "Unable to find caption for this image.";
-    return `${captionLabel} ${figureNumber}`;
+    return `${options.captionLabel} ${figureNumber}`;
 }
 
-export default function (eleventyConfig, options) {
-    // populate our default options
-    captionBold = options?.captionBold ?? DEFAULT_CAPTION_BOLD;
-    // if captionClass is not specified, use the default. 
-    // otherwise, use whatever is there (including blank)
-    captionClass = options?.captionClass ?? DEFAULT_CAPTION_CLASS;
-    captionLabel = options?.captionLabel || DEFAULT_CAPTION_LABEL;
+export default function (eleventyConfig, pluginOptions) {
+    // populate the default options
+    options = { ...defaultConfig, ...pluginOptions };
+    console.log(`Config:\ncaptionBold: ${options.captionBold}\ncaptionClass: ${options.captionClass}\ncaptionLabel: ${options.captionLabel}`);
 
     // Add the shortcodes
     eleventyConfig.addLiquidShortcode('captionedImage', captionedImageShortcode);

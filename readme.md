@@ -9,13 +9,15 @@
   - [Background](#background)
   - [Examples](#examples)
   - [Limitations](#limitations)
-    - [One Image](#one-image)
+    - [Single Image](#single-image)
     - [Serve Mode](#serve-mode)
   - [Installation](#installation)
   - [Plugin Configuration](#plugin-configuration)
   - [Usage](#usage)
 
 <!-- /TOC -->
+
+---
 
 An Eleventy (11ty) plugin that adds two shortcodes to a site:
 
@@ -50,7 +52,7 @@ When you invoke the shortcode, you give it the file path pointing to the image a
 
 Before we get too deep into the technical details of the plugin, its important to note two limitations.
 
-### One Image 
+### Single Image
 
 `imageReference` won't work correctly if you use the same image on the page twice. Remember, the shortcode takes the file path of the image you want to reference. If you display the same image more than one time on the page, the plugin won't know which instance you're referring to. 
 
