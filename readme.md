@@ -11,9 +11,12 @@
   - [Limitations](#limitations)
     - [Single Image](#single-image)
     - [Serve Mode](#serve-mode)
+    - [Image Reference Position](#image-reference-position)
   - [Installation](#installation)
   - [Plugin Configuration](#plugin-configuration)
   - [Usage](#usage)
+    - [imageCaption](#imagecaption)
+    - [imageReference](#imagereference)
 
 <!-- /TOC -->
 
@@ -23,7 +26,7 @@ An Eleventy (11ty) plugin that adds two shortcodes to a site:
 
 | Shortcode        | Description  | 
 | ---------------- | ------------------------------------ |
-| `captionedImage` | Returns an automatically numbered image caption like "Figure 1: A boy with a dog" The shortcode automatically assigns the image/figure number based on an image file's position on the page (top to bottom). | 
+| `imageCaption` | Returns an automatically numbered image caption like "Figure 1: A boy with a dog" The shortcode automatically assigns the image/figure number based on an image file's position on the page (top to bottom). | 
 | `imageReference` | Returns a text string that references a particular image by number like "Figure 2". |
 
 ## Background
@@ -66,9 +69,15 @@ When running the site included with this plugin on your local development workst
 
 ![Example 3](/images/example-03.png)
 
-This is... on purpose. As I coded the plugin, I realized that when I run the server in development mode, every time I save the project and the page refreshes in the browser, the assigned image numbers incremented. This means that they'd be accurate and I made the decision to essentially disable auto numbering in development mode, instead showing a `#` to represent the image number.
+This is...deliberate (on purpose). As I coded the plugin, I realized that when I run the server in development mode, every time I save the project and the page refreshes in the browser, the assigned image numbers incremented. This means that they'd be accurate and I made the decision to essentially disable auto numbering in development mode, instead showing a `#` to represent the image number.
 
 When you publish the site on a server or run you run a local build and look in the project's `_site` folder, you'll see that the captions number as expected.
+
+### Image Reference Position
+
+A page must add a caption an image using the `imageCaption` shortcode before you can use the `imageReference` shortcode to reference it. Its the process of adding the image to the page that creates the index used by `imageReference` to lookup the image number.
+
+This is a side effect of how I coded the plugin. I'm not happy with this limitation, so I plan on refactoring the code to get around it. I'm not sure if I can do it, but I will try to figure it out.
 
 ## Installation
 
@@ -80,22 +89,27 @@ npm i eleventy-plugin-image-caption
 
 ## Plugin Configuration
 
+The plugin supports a few configuration options that allow you to configure the plugin's behavior. 
+
 | Configuration Option | Description  | 
 | -------------------- | ------------ |
-| `captionBold`        | Boolean value that controls whether the caption text ("Image #:" or "Figure #:") is bold (HTML `strong`).<br />Default: `true`  |
-| `captionClass`       | String value that specifies the class name added to the <br />Default:  `caption` |
-| `captionLabel`       | String value that specifies the text label prepended to the caption.<br />Default: `Image` |
+| `captionBold`        | Boolean value that controls whether the caption text ("Image #:" or "Figure #:") is bold (HTML `strong`).<br />Default: `true`.  |
+| `captionClass`       | String value that specifies the class name added to the <br />Default: `caption`. |
+| `captionLabel`       | String value that specifies the text label prepended to the caption.<br />Default: `Image`. |
+
+As with any Eleventy Plugin, to use it you must import it into your project's configuration file (mine is `.eleventy.config.js`):
 
 ```js
 import imageCaptionPlugin from 'eleventy-plugin-image-caption';
 ```
 
+Then, within the exported function in the configuration file, add the plugin to the Eleventy configuration. The following code adds the plugin with its default settings (described in the table above):
+
 ```js
 eleventyConfig.addPlugin(imageCaptionPlugin);
 ```
 
-	// load some options different from the default
-	// Not passing a `captionClass` value defaults to the default
+You can also load the plugin and specify configuration options as shown in the following example. The example disables bolding for the caption label and sets the caption label to "Figure: ":
 
 ```js
 eleventyConfig.addPlugin(imageCaptionPlugin, {
@@ -104,7 +118,7 @@ eleventyConfig.addPlugin(imageCaptionPlugin, {
 });
 ```
 
-	// Use a different class for the image paragraph
+If your site uses a different class name for captions, specify it in the configuration like this:
 
 ```js
 eleventyConfig.addPlugin(imageCaptionPlugin, {		
@@ -113,8 +127,7 @@ eleventyConfig.addPlugin(imageCaptionPlugin, {
 });
 ```
 
-
-
+Here's an example of a complete Eleventy configuration file using the settings from the second example above:
 
 ```js
 import imageCaptionPlugin from './eleventy-plugin-image-caption.js';
@@ -142,15 +155,68 @@ export default async function (eleventyConfig) {
 };
 ```
 
+With that in place, you can start using the shortcodes in your site's pages.
 
 ## Usage
 
+### `imageCaption`
 
+To add a caption to an image on one of your site's pages, use the `imageCaption` shortcode which looks something like this:
 
+```liquid
+{% imageCaption "<image-file-path>" "<caption-text>" %}
+```
 
+In the example: 
 
++ `<image-file-path>` refers to the file name (with relevant path) to the image file being captioned. 
++ `<caption-text>` refers to the text you want displayed in the caption.
 
-`imageReference` only works for references after the image.
+Here's an example from the sample app included in this repository:
+
+```liquid
+{% imageCaption "/images/richard-brutyo-Sg3XwuEpybU-unsplash.jpg" "Dog with Flower" %}
+```
+
+When Eleventy builds the site, the plugin will replace the shortcode with:  
+
+```text
+Image 1: Dog with Flower
+```
+
+Which is what you see in the first screenshot on this page.
+
+### `imageReference`
+
+**Note:** As mentioned in the Limitations section of this document, the `imageReference` shortcode only works images that have already been captioned. The captioned image must be higher in the page content than the associated image reference shortcode.
+
+To calculate the caption label (label text plus image number) on a page, use the `imageReference` shortcode:
+
+```liquid
+{% imageReference "<image-file-path>" %}
+```
+
+In the example: 
+
++ `<image-file-path>` refers to the file name (with relevant path) to the captioned image file on the page. 
+
+For example, to calculate a reference to the image from the previous section's example,  you would use the following shortcode *after* the image has already been captioned.
+
+```liquid
+{% imageReference "/images/richard-brutyo-Sg3XwuEpybU-unsplash.jpg" %}
+```
+
+Here's an example from the sample app included in this repository:
+
+```liquid
+I personally think {% imageReference "/images/richard-brutyo-Sg3XwuEpybU-unsplash.jpg" %} is cuter than {% imageReference "/images/mtsjrdl-5yAhL8ViUVg-unsplash.jpg" %}, don't you?
+```
+
+Which generates the following text:
+
+```text
+I personally think Image 1 is cuter than Image 2, don't you?
+```
 
 ***
 

@@ -72,6 +72,6 @@ export default function (eleventyConfig, pluginOptions) {
     console.log(`Config:\ncaptionBold: ${options.captionBold}\ncaptionClass: ${options.captionClass}\ncaptionLabel: ${options.captionLabel}`);
 
     // Add the shortcodes
-    eleventyConfig.addLiquidShortcode('captionedImage', captionedImageShortcode);
+    eleventyConfig.addLiquidShortcode('imageCaption', captionedImageShortcode);
     eleventyConfig.addLiquidShortcode('imageReference', imageReferenceShortcode);
 }

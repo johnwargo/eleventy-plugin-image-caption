@@ -10,7 +10,7 @@ The [Eleventy Plugin Image Caption](https://github.com/johnwargo/eleventy-plugin
 Here's a cute image of a dog sitting with a flower in her mouth.
 
 ![A dog holding a flower in its mouth](/images/richard-brutyo-Sg3XwuEpybU-unsplash.jpg)
-{% captionedImage "/images/richard-brutyo-Sg3XwuEpybU-unsplash.jpg" "Dog with Flower" %}
+{% imageCaption "/images/richard-brutyo-Sg3XwuEpybU-unsplash.jpg" "Dog with Flower" %}
 
 Photo by <a href="https://unsplash.com/@richardbrutyo?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Richard Brutyo</a> on <a href="https://unsplash.com/photos/yellow-labrador-retriever-biting-yellow-tulip-flower-Sg3XwuEpybU?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
 
@@ -21,7 +21,7 @@ Notice the caption on the image above, the bold portion is generated based on th
 Lets look at another capability of the plugin, referencing images by caption index later in the post. Here's a picture of a cute puppy laying on the ground.
 
 ![A puppy lying on the ground](/images/mtsjrdl-5yAhL8ViUVg-unsplash.jpg)
-{% captionedImage "/images/mtsjrdl-5yAhL8ViUVg-unsplash.jpg" "A puppy lying down on the ground" %}
+{% imageCaption "/images/mtsjrdl-5yAhL8ViUVg-unsplash.jpg" "A puppy lying down on the ground" %}
 
 Photo by <a href="https://unsplash.com/@mtsjrdl?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">mtsjrdl</a> on <a href="https://unsplash.com/photos/white-and-brown-long-coated-dog-5yAhL8ViUVg?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
 
@@ -29,9 +29,8 @@ I personally think {% imageReference "/images/richard-brutyo-Sg3XwuEpybU-unsplas
 
 Finally, here's another image of a puppy. I don't have another plugin use case to show you, I just like looking at pictures of puppys.
 
-
 ![A puppy sitting on some grass](/images/parttime-portraits-atOlntWcO4k-unsplash.jpg)
-{% captionedImage "/images/parttime-portraits-atOlntWcO4k-unsplash.jpg" "A puppy sitting on some grass" %}
+{% imageCaption "/images/parttime-portraits-atOlntWcO4k-unsplash.jpg" "A puppy sitting on some grass" %}
 
 Photo by <a href="https://unsplash.com/@parttimepotraits?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">PartTime Portraits</a> on <a href="https://unsplash.com/photos/light-golden-retriever-puppy-on-green-grass-field-during-daytime-atOlntWcO4k?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
 
