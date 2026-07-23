@@ -3,6 +3,20 @@
 > [!WARNING]
 > Work in progress, not ready for public consumption.
 
+<!-- TOC -->
+
+- [Eleventy Plugin Image Caption](#eleventy-plugin-image-caption)
+  - [Background](#background)
+  - [Examples](#examples)
+  - [Limitations](#limitations)
+    - [One Image](#one-image)
+    - [Serve Mode](#serve-mode)
+  - [Installation](#installation)
+  - [Plugin Configuration](#plugin-configuration)
+  - [Usage](#usage)
+
+<!-- /TOC -->
+
 Eleventy (11ty) plugin that adds two shortcodes to a site:
 
 | Shortcode        | Description  | 
