@@ -9,23 +9,15 @@
 
 // TODO: add support for selecting which version of an image you want to refer to
 
-const DEFAULT_CAPTION_BOLD = true;
-const DEFAULT_CAPTION_CLASS = "caption";
-const DEFAULT_CAPTION_LABEL = "Figure";
-
 const isDev = process.env.ELEVENTY_RUN_MODE === "serve" || process.env.ELEVENTY_RUN_MODE === "watch";
 
 const captions = [];
-
-// var captionBold;
-// var captionClass;
-// var captionLabel;
 var options = {};
 
 const defaultConfig = {
   captionBold: true,
-  captionClass: DEFAULT_CAPTION_CLASS,
-  captionLabel: DEFAULT_CAPTION_LABEL
+  captionClass: 'caption',
+  captionLabel: 'Image'
 };
 
 function captionedImageShortcode(imagePath, captionText) {

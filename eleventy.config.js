@@ -5,16 +5,17 @@ export default async function (eleventyConfig) {
 	// load the plugin with all defaults
 	eleventyConfig.addPlugin(imageCaptionPlugin);
 
-	eleventyConfig.addPlugin(imageCaptionPlugin, {
-		captionBold: true,
-		captionLabel: "Image",
-		captionClass: "doggie"
-	});
-
+	// load some options different from the default
+	// Not passing a `captionClass` value defaults to the default
 	// eleventyConfig.addPlugin(imageCaptionPlugin, {
-	// 	captionBold: true,
-	// 	captionLabel: "Image",
-	// 	captionClass: ""
+	// 	captionBold: false,
+	// 	captionLabel: "Figure"
+	// });
+
+	// Use a different class for the image paragraph
+	// eleventyConfig.addPlugin(imageCaptionPlugin, {
+	// 	captionBold: false,
+	// 	captionClass: "ImageCaption"
 	// });
 
 	eleventyConfig.addPassthroughCopy("src/assets/");
