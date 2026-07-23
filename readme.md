@@ -50,6 +50,10 @@ When running the site included with this plugin on your local development workst
 
 ![Example 3](/images/example-03.png)
 
+This is... on purpose. As I coded the plugin, I realized that when I run the server in development mode, every time I save the project and the page refreshes in the browser, the assigned image numbers incremented. This means that they'd be accurate and I made the decision to essentially disable auto numbering in development mode, instead showing a `#` to represent the image number.
+
+When you publish the site on a server or run you run a local build and look in the project's `_site` folder, you'll see that the captions number as expected.
+
 ## Installation
 
 
