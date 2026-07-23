@@ -2,10 +2,9 @@
 _site/
 node_modules/
 src/
+images/
 
 # files
 .gitignore
 eleventy.config.js
-pub.mjs
-home.png
-npm.png
+pub.cmd

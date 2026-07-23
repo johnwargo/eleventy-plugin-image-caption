@@ -3,7 +3,7 @@
 > [!WARNING]
 > Work in progress, not ready for public consumption.
 
-Eleventy (11ty) plugin that adds two shortcodes to an Eleventy project:
+Eleventy (11ty) plugin that adds two shortcodes to a site:
 
 | Shortcode        | Description  | 
 | ---------------- | ------------------------------------ |
