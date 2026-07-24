@@ -26,6 +26,8 @@ An Eleventy (11ty) plugin that adds two shortcodes to a site:
 | `imageCaption` | Returns an automatically numbered image caption like "Figure 1: A boy with a dog" The shortcode automatically assigns the image/figure number based on an image file's position on the page (top to bottom). | 
 | `imageReference` | Returns a text string that references a particular image by number like "Figure 2". |
 
+See the plugin in action on the [demo site](https://eleventy-plugin-image-caption.netlify.app/) included in this repository.
+
 ## Background
 
 I've always loved the Microsoft Word features that allow you to add an auto numbering caption to an embedded image or table then reference the caption elsewhere in the document. This is something you could do to any Word document manually, but with these features, the numbers and references update automatically whenever you move images around or add new images to the document.
