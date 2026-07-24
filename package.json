@@ -1,6 +1,6 @@
 {
   "name": "eleventy-plugin-image-caption",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Eleventy post image caption plugin",
   "main": "eleventy-plugin-image-caption.js",
   "type": "module",
