@@ -221,4 +221,4 @@ I personally think Image 1 is cuter than Image 2, don't you?
 
 You can find information on many different topics on my [personal blog](http://www.johnwargo.com).
 
-If you find this code useful and feel like thanking me for providing it, please consider <a href="https://www.buymeacoffee.com/johnwargo" target="_blank">Buying Me a Coffee</a>, or making a purchase from [my Amazon Wish List](https://amzn.com/w/1WI6AAUKPT5P9).
+If you find this code useful and feel like thanking me for providing it, please consider <a href="https://www.buymeacoffee.com/johnwargo" target="_blank">Buying Me a Coffee</a>, or making a purchase from [my Amazon Wish List](https://www.amazon.com/hz/wishlist/ls/JNYH50V13KUD).
