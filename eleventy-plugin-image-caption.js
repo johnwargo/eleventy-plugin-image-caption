@@ -7,26 +7,28 @@
  * page. Using sequential numbers, of course.
  ********************************************************************/
 
-// TODO: add support for selecting which version of an image you want to refer to
-
 const isDev = process.env.ELEVENTY_RUN_MODE === "serve" || process.env.ELEVENTY_RUN_MODE === "watch";
 
 const captions = [];
+
+var classStr;
 var options = {};
 
 const defaultConfig = {
-  captionBold: true,
-  captionClass: 'caption',
-  captionLabel: 'Image'
+    captionBold: true,
+    captionClass: 'caption',
+    captionLabel: 'Image'
 };
 
-function captionedImageShortcode(imagePath, captionText) {
-    const SHORTCODE_NAME = 'ImageCaption';
-    var classStr;
+function generateCaption(figureNumber, captionText) {
+    return options.captionBold
+        ? `<p${classStr}><strong>${options.captionLabel} ${figureNumber}: </strong>${captionText}</p>`
+        : `<p${classStr}>${options.captionLabel} ${figureNumber}: ${captionText}</p>`;
+}
 
-    console.log(`[${SHORTCODE_NAME}] "${imagePath}"`);
+function imageCaption(imagePath, captionText) {
+    console.log(`[ImageCaption] "${imagePath}"`);
     const page = this.page.url; // get the current page URL
-
     // does the page's array exist in the captions?
     if (!captions[page]) {
         // then make a new entry for it
@@ -34,33 +36,19 @@ function captionedImageShortcode(imagePath, captionText) {
     }
     // append the caption to the captions array for the current page
     captions[page].push({ imagePath, captionText });
-
-    classStr = options.captionClass.length > 0
-        ? ` class="${options.captionClass}"`
-        : "";
-
     // if we're in dev mode, just return generic text
     // to understand why, read the repo's readme file
-    if (isDev) return options.captionBold
-        ? `<p${classStr}><strong>${options.captionLabel} #: </strong>${captionText}</p>`
-        : `<p${classStr}>${options.captionLabel} #: ${captionText}</p>`;
-
-    const figureNumber = captions[page].length;
-    return options.captionBold
-        ? `<p${classStr}><strong>${options.captionLabel} ${figureNumber}: </strong>${captionText}</p>`
-        : `<p${classStr}>${options.captionLabel} ${figureNumber}: ${captionText}</p>`;
+    if (isDev) return generateCaption("#", captionText);
+    return generateCaption(captions[page].length, captionText);
 }
 
-function imageReferenceShortcode(imagePath) {
-    const SHORTCODE_NAME = 'ImageReference';
-    console.log(`[${SHORTCODE_NAME}] "${imagePath}"`);
+function imageReference(imagePath) {
+    console.log(`[ImageReference] "${imagePath}"`);
     const page = this.page.url; // get the current page URL
 
     // Is the page in the captions array?
-    if (!captions[page]) {
-        // too early to reference images
-        return "Invalid Reference";
-    }
+    if (!captions[page]) return "Invalid Reference";
+    // does the image exist in the captions array for the current page? It should
     const figureNumber = captions[page].findIndex(image => image.imagePath === imagePath) + 1;
     if (figureNumber === 0) return "Unable to find caption for this image.";
     return `${options.captionLabel} ${figureNumber}`;
@@ -69,9 +57,12 @@ function imageReferenceShortcode(imagePath) {
 export default function (eleventyConfig, pluginOptions) {
     // populate the default options
     options = { ...defaultConfig, ...pluginOptions };
-    console.log(`Config:\ncaptionBold: ${options.captionBold}\ncaptionClass: ${options.captionClass}\ncaptionLabel: ${options.captionLabel}`);
+    // calculate the class string based on options
+    classStr = options.captionClass.length > 0
+        ? ` class="${options.captionClass}"`
+        : "";
 
     // Add the shortcodes
-    eleventyConfig.addLiquidShortcode('imageCaption', captionedImageShortcode);
-    eleventyConfig.addLiquidShortcode('imageReference', imageReferenceShortcode);
+    eleventyConfig.addLiquidShortcode('imageCaption', imageCaption);
+    eleventyConfig.addLiquidShortcode('imageReference', imageReference);
 }
