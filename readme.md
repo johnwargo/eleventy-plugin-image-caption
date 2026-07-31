@@ -13,7 +13,6 @@
   - [Plugin Configuration](#plugin-configuration)
   - [Usage](#usage)
     - [imageCaption](#imagecaption)
-    - [imageReference](#imagereference)
 
 <!-- /TOC -->
 
@@ -56,8 +55,6 @@ Before we get too deep into the technical details of the plugin, its important t
 
 ### Single Image
 
-`imageReference` won't work correctly if you use the same image on the page twice. Remember, the shortcode takes the file path of the image you want to reference. If you display the same image more than one time on the page, the plugin won't know which instance you're referring to. 
-
 Resolution: Copy the image to a different/second file name if you want to do this. 
 
 My long term goal is to allow you to pass an instance parameter to the shortcode to identify which version of the you image intend to reference.
@@ -75,8 +72,6 @@ When you publish the site on a server or run you run a local build and look in t
 ### Image Reference Position
 
 A page must add a caption an image using the `imageCaption` shortcode before you can use the `imageReference` shortcode to reference it. Its the process of adding the image to the page that creates the index used by `imageReference` to lookup the image number.
-
-This is a side effect of how I coded the plugin. I'm not happy with this limitation, so I plan on refactoring the code to get around it. I'm not sure if I can do it, but I will try to figure it out.
 
 ## Installation
 
@@ -163,18 +158,18 @@ With that in place, you can start using the shortcodes in your site's pages.
 To add a caption to an image on one of your site's pages, use the `imageCaption` shortcode which looks something like this:
 
 ```liquid
-{% imageCaption "<image-file-path>" "<caption-text>" %}
+{% imageCaption "<image-index>" "<caption-text>" %}
 ```
 
 In the example: 
 
-+ `<image-file-path>` refers to the file name (with relevant path) to the image file being captioned. 
++ `<image-index>` refers to a unique identifier for the image file being captioned. You'll use this index later to refer to the image using the `imageReference` shortcode.
 + `<caption-text>` refers to the text you want displayed in the caption.
 
 Here's an example from the sample app included in this repository:
 
 ```liquid
-{% imageCaption "/images/richard-brutyo-Sg3XwuEpybU-unsplash.jpg" "Dog with Flower" %}
+{% imageCaption "richard-brutyo-Sg3XwuEpybU-unsplash.jpg" "Dog with Flower" %}
 ```
 
 When Eleventy builds the site, the plugin will replace the shortcode with:  
@@ -185,6 +180,11 @@ Image 1: Dog with Flower
 
 Which is what you see in the first screenshot on this page.
 
+In this example, I used the file name for the image file, recognizing that it should be unique unless I happen to use the image file twice on the same page. I could have easily used the following:
+
+```liquid
+{% imageCaption "dogFlower" "Dog with Flower" %}
+
 ### `imageReference`
 
 **Note:** As mentioned in the [Limitations](#limitations) section of this document, the `imageReference` shortcode only works images that have already been captioned. The captioned image must be higher in the page content than the associated image reference shortcode.
@@ -192,23 +192,29 @@ Which is what you see in the first screenshot on this page.
 To calculate the caption label (label text plus image number) on a page, use the `imageReference` shortcode:
 
 ```liquid
-{% imageReference "<image-file-path>" %}
+{% imageReference "<image-index>" %}
 ```
 
 In the example: 
 
-+ `<image-file-path>` refers to the file name (with relevant path) to the captioned image file on the page. 
++ `<image-index>` refers to the unique identifier assigned to the caption created earlier. 
 
-For example, to calculate a reference to the image from the previous section's example,  you would use the following shortcode *after* the image has already been captioned.
+For example, to calculate a reference to the image from the previous section's example, you would use the following shortcode *after* the image has already been captioned.
 
 ```liquid
-{% imageReference "/images/richard-brutyo-Sg3XwuEpybU-unsplash.jpg" %}
+{% imageReference "richard-brutyo-Sg3XwuEpybU-unsplash.jpg" %}
+```
+
+or, for the second example:
+
+```liquid
+{% imageReference "dogFlower" %}
 ```
 
 Here's an example from the sample app included in this repository:
 
 ```liquid
-I personally think {% imageReference "/images/richard-brutyo-Sg3XwuEpybU-unsplash.jpg" %} is cuter than {% imageReference "/images/mtsjrdl-5yAhL8ViUVg-unsplash.jpg" %}, don't you?
+I personally think {% imageReference "richard-brutyo-Sg3XwuEpybU-unsplash.jpg" %} is cuter than {% imageReference "mtsjrdl-5yAhL8ViUVg-unsplash.jpg" %}, don't you?
 ```
 
 Which generates the following text:
