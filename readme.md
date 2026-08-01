@@ -13,6 +13,7 @@
   - [Plugin Configuration](#plugin-configuration)
   - [Usage](#usage)
     - [imageCaption](#imagecaption)
+    - [imageReference](#imagereference)
 
 <!-- /TOC -->
 
@@ -25,39 +26,31 @@ An Eleventy (11ty) plugin that adds two shortcodes to a site:
 | `imageCaption` | Returns an automatically numbered image caption like "Figure 1: A boy with a dog" The shortcode automatically assigns the image/figure number based on an image file's position on the page (top to bottom). | 
 | `imageReference` | Returns a text string that references a particular image by number like "Figure 2". |
 
-See the plugin in action on the [demo site](https://eleventy-plugin-image-caption.netlify.app/) included in this repository.
-
 ## Background
 
 I've always loved the Microsoft Word features that allow you to add an auto numbering caption to an embedded image or table then reference the caption elsewhere in the document. This is something you could do to any Word document manually, but with these features, the numbers and references update automatically whenever you move images around or add new images to the document.
 
-While working on a new Eleventy site, I realized that I wanted the same capability in Eleventy. This particular site will host a lot of tutorials and product reviews, so being able to easily reference image captions in a post was key to readability.
+While working on a new Eleventy site, I realized that I wanted the same capability in Eleventy. On this site, I expect to host a lot of tutorials and product reviews, so being able to easily reference image captions in a post was key to readability.
 
 ## Examples
 
 This repository includes a complete Eleventy site that demonstrates the functionality exposed through the plugin; you can access the site on [Netlify](https://eleventy-plugin-image-caption.netlify.app/).
 
-Here's an example of a simple caption added to an image using the `captionedImage` shortcode. The shortcut adds a paragraph with the text "Image 1: Dog with Flower" shown in the following figure. Its the first image in the file, so the plugin automatically numbers it with a 1.
+Here's an example of a simple caption added to an image using the `imageCaption` shortcode. The shortcut adds a paragraph with the text "Image 1: Dog with Flower" shown in the following figure. Its the first image in the file, so the plugin automatically numbers it with a 1.
 
 ![Example 1](/images/example-01.png)
 
-When you invoke the shortcode, you give it the file path pointing to the image plus the text added to the caption and the plugin handles the rest.
+When you invoke the shortcode, you give it a unique reference to the image plus the text added to the caption and the plugin handles the rest.
 
 The next example highlights referencing an image in the post image number/reference using the `imageReference` shortcode.
 
 ![Example 2](/images/example-02.png)
 
-When you invoke the shortcode, you give it the file path pointing to the image and the plugin handles the rest.
+When you invoke the shortcode, you give it the unique index for the image and the plugin handles the rest.
 
 ## Limitations
 
 Before we get too deep into the technical details of the plugin, its important to note two limitations.
-
-### Single Image
-
-Resolution: Copy the image to a different/second file name if you want to do this. 
-
-My long term goal is to allow you to pass an instance parameter to the shortcode to identify which version of the you image intend to reference.
 
 ### Serve Mode
 
@@ -124,7 +117,7 @@ eleventyConfig.addPlugin(imageCaptionPlugin, {
 Here's an example of a complete Eleventy configuration file using the settings from the second example above:
 
 ```js
-import imageCaptionPlugin from './eleventy-plugin-image-caption.js';
+import imageCaptionPlugin from 'eleventy-plugin-image-caption';
 
 export default async function (eleventyConfig) {
 
@@ -184,6 +177,7 @@ In this example, I used the file name for the image file, recognizing that it sh
 
 ```liquid
 {% imageCaption "dogFlower" "Dog with Flower" %}
+```
 
 ### `imageReference`
 
