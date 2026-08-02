@@ -1,12 +1,13 @@
 # Eleventy Plugin Image Caption
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/e11a69ac-2b6a-4699-b9aa-3e2dd0d48529/deploy-status)](https://app.netlify.com/projects/eleventy-plugin-image-caption/deploys)
+
 <!-- TOC -->
 
 - [Eleventy Plugin Image Caption](#eleventy-plugin-image-caption)
   - [Background](#background)
   - [Examples](#examples)
   - [Limitations](#limitations)
-    - [Single Image](#single-image)
     - [Serve Mode](#serve-mode)
     - [Image Reference Position](#image-reference-position)
   - [Installation](#installation)
